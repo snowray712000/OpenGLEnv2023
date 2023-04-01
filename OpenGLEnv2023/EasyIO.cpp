@@ -63,7 +63,7 @@ namespace EasyIO {
 	stringT OpenDirectoryDialog() {
 		// 初始化 BROWSEINFO 结构体
 		BROWSEINFO bi = { 0 };
-		bi.lpszTitle = L"Choose a directory"; // 设置对话框标题
+		bi.lpszTitle = _T("Choose a directory"); // 设置对话框标题
 		LPITEMIDLIST pidl = SHBrowseForFolder(&bi); // 打开瀏覽對話框
 		if (pidl != NULL) {
 			TCHAR path[MAX_PATH];
