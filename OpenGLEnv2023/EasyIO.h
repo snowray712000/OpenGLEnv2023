@@ -17,6 +17,8 @@ namespace EasyIO {
     // if (OpenFileDialog(nullptr, "XYZ or STL Files (*.xyz;*.stl)\0*.xyz;*.stl\0Xyz Files (*.xyz)\0*.xyz\0STL Files (*.stl)\0*.stl\0All Files (*.*)\0*.*\0", buf, MAX_PATH)) {
     // 太複雜，請用 OpenFileDialogEasy 或 OpenFileDialogEasyImage 等等
     bool OpenFileDialog(HWND hwnd, LPCTSTR filter, LPTSTR selectedFilePath, DWORD selectedFilePathLength);
+    // 開啟對話方塊，選擇目錄。
+    stringT OpenDirectoryDialog();
     bool isPathExist(stringT path);
 }
 namespace EasyIO {
@@ -30,7 +32,6 @@ namespace EasyIO {
     }
     inline stringT OpenFileDialogEasyImage() {
         LPCTSTR filter = _T("Image Files(*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.ico;*.tiff;*.tif)\0*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.ico;*.tiff;*.tif\0All Files(*.*)\0*.*\0");
-
         return OpenFileDialogEasy(filter);
     }
 }
