@@ -32,4 +32,4 @@
 *.out
 *.app
 /.vs
-/OpenGLEnv2023/x64/Release
+/OpenGLEnv2023/x64

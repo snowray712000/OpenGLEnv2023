@@ -4,33 +4,34 @@
 #pragma comment (lib, "Shlwapi.lib") // 加入 Shlwapi.lib 庫文件
 namespace EasyIO {
     // 注意: 當使用 windows api dialog 選取檔案時，也會切換 current directory。
-    std::string getCurrentDirectory() {
+    stringT getCurrentDirectory() {
         DWORD buflen = MAX_PATH + 1;
-        char buf[MAX_PATH + 1];
-        if (GetCurrentDirectoryA(buflen, buf) == 0) {
+        TCHAR buf[MAX_PATH + 1];
+        if (GetCurrentDirectory(buflen, buf) == 0) {
             // 获取失败，可以在此处添加错误处理代码
-            return "";
+            return stringT();
         }
         return buf;
     }
+
     // windows 有時候會用到的，因為 windows 取得是回傳 \\ 而非 / 
-    std::string replaceBackslashWithSlash(std::string str) {
+    stringT replaceBackslashWithSlash(stringT str) {
         for (size_t i = 0; i < str.length(); i++) {
-            if (str[i] == '\\') {
-                str.replace(i, 1, "/");
+            if (str[i] == _T('\\')) {
+                str.replace(i, 1, _T("/"));
             }
         }
         return str;
     }
-    std::string getExecutableDirectory() {
-        char buf[MAX_PATH + 1];
-        if (GetModuleFileNameA(NULL, buf, MAX_PATH + 1) == 0) {
+    stringT getExecutableDirectory() {
+        TCHAR buf[MAX_PATH + 1];
+        if (GetModuleFileName(NULL, buf, MAX_PATH + 1) == 0) {
             // 获取失败，可以在此处添加错误处理代码
-            return "";
+            return stringT();
         }
-        std::string path = buf;
-        size_t pos = path.find_last_of("\\/");
-        if (pos != std::string::npos) {
+        stringT path = buf;
+        size_t pos = path.find_last_of(_T("\\/"));
+        if (pos != stringT::npos) {
             path = path.substr(0, pos);
         }
         return path;
@@ -59,15 +60,15 @@ namespace EasyIO {
         }
     }
 
-    bool isPathExist(std::string path) {
-        return PathFileExistsA(path.c_str());
+    bool isPathExist(stringT path) {
+        return PathFileExists(path.c_str());
     }
 
     // 辅助函数：分割路径字符串为路径名和目录名
-    inline void RelativePathConvertor::splitPath(const std::string& path, std::string& dirname, std::string& filename) {
-        size_t pos = path.find_last_of('/');
+    inline void RelativePathConvertor::splitPath(const stringT& path, stringT& dirname, stringT& filename) {
+        size_t pos = path.find_last_of(_T('/'));
         if (pos == std::string::npos) {
-            dirname = "";
+            dirname = _T("");
             filename = path;
         }
         else {
@@ -76,23 +77,23 @@ namespace EasyIO {
         }
     }
 
-    std::string RelativePathConvertor::makeRelativePath(const std::string& pathFull, std::string pathCurrentDirection) {
+    stringT RelativePathConvertor::makeRelativePath(const stringT& pathFull, stringT pathCurrentDirection) {
         if (pathCurrentDirection.empty()) {
-            pathCurrentDirection = EasyIO::replaceBackslashWithSlash(EasyIO::getExecutableDirectory() + '/');
+            pathCurrentDirection = EasyIO::replaceBackslashWithSlash(EasyIO::getExecutableDirectory() + _T('/'));
         }
 
-        std::string dirFull, dirCurr, fileFull, fileCurr;
+        stringT dirFull, dirCurr, fileFull, fileCurr;
         splitPath(pathFull, dirFull, fileFull);
         splitPath(pathCurrentDirection, dirCurr, fileCurr);
 
         // 按照目录深度分割路径
-        std::vector<std::string> dirsFull, dirsCurr;
-        std::stringstream ssFull(dirFull), ssCurr(dirCurr);
-        std::string dir;
-        while (std::getline(ssFull, dir, '/')) {
+        std::vector<stringT> dirsFull, dirsCurr;
+        stringstreamT ssFull(dirFull), ssCurr(dirCurr);
+        stringT dir;
+        while (std::getline(ssFull, dir, _T('/'))) {
             dirsFull.push_back(dir);
         }
-        while (std::getline(ssCurr, dir, '/')) {
+        while (std::getline(ssCurr, dir, _T('/'))) {
             dirsCurr.push_back(dir);
         }
 
@@ -103,12 +104,12 @@ namespace EasyIO {
         }
 
         // 生成相对路径
-        std::string pathRelative;
+        stringT pathRelative;
         for (size_t j = i; j < dirsCurr.size(); j++) {
-            pathRelative += "../";
+            pathRelative += _T("../");
         }
         for (size_t j = i; j < dirsFull.size(); j++) {
-            pathRelative += dirsFull[j] + "/";
+            pathRelative += dirsFull[j] + _T("/");
         }
         pathRelative += fileFull;
         return pathRelative;
