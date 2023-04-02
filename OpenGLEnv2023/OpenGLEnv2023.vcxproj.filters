@@ -60,12 +60,24 @@
     <ClCompile Include="EasyString.cpp">
       <Filter>來源檔案\EasyTool</Filter>
     </ClCompile>
+    <ClCompile Include="mainFlowUsingGlfwGlad.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyImGui.cpp">
+      <Filter>來源檔案\EasyTool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyIO.h">
       <Filter>來源檔案\EasyTool</Filter>
     </ClInclude>
     <ClInclude Include="EasyString.h">
+      <Filter>來源檔案\EasyTool</Filter>
+    </ClInclude>
+    <ClInclude Include="mainFlowUsingGlfwGlad.h">
+      <Filter>來源檔案</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyImGui.h">
       <Filter>來源檔案\EasyTool</Filter>
     </ClInclude>
   </ItemGroup>

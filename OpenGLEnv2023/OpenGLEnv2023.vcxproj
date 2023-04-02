@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -149,13 +149,22 @@
     <ClCompile Include="..\include\imgui\implot.cpp" />
     <ClCompile Include="..\include\imgui\implot_demo.cpp" />
     <ClCompile Include="..\include\imgui\implot_items.cpp" />
+    <ClCompile Include="EasyImGui.cpp" />
     <ClCompile Include="EasyIO.cpp" />
     <ClCompile Include="EasyString.cpp" />
-    <ClCompile Include="OpenGLEnv2023.cpp" />
+    <ClCompile Include="mainFlowUsingGlfwGlad.cpp" />
+    <ClCompile Include="OpenGLEnv2023.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EasyImGui.h" />
     <ClInclude Include="EasyIO.h" />
     <ClInclude Include="EasyString.h" />
+    <ClInclude Include="mainFlowUsingGlfwGlad.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
