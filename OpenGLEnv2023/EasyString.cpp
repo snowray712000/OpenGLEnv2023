@@ -4,6 +4,8 @@
 #include <codecvt>
 #include <Windows.h>
 
+//#include <fcntl.h>  // _O_U16TEXT
+//#include <io.h>     // _setmode
 namespace EasyString {
 	// 可直接使用 u8"這就是utf8" 了
 	std::string stringwToUTF8(const std::wstring& str) {
@@ -37,5 +39,15 @@ namespace EasyString {
 		delete[] wideStr;
 
 		return std::string(utf8Str);
+	}
+
+	std::string stringwTostring(const std::wstring& str) {
+		// 将 std::wstring 转换为 std::string
+		std::wstring_convert<std::codecvt_byname<wchar_t, char, std::mbstate_t>> converter(new std::codecvt_byname<wchar_t, char, std::mbstate_t>(""));
+		return converter.to_bytes(str); // path 變數內容是正確的，但 cout 到中文會斷掉了。
+
+		// 将控制台代码页设置为 UTF-16
+		// 變數內容是正確的，因此將 console 設定為 Unicode
+		//_setmode(_fileno(stdout), _O_U16TEXT);
 	}
 }

@@ -28,4 +28,9 @@ namespace EasyString {
     // 運作邏輯是，先將 ascii 轉為 unicode ， 再 unicode 轉為 utf8 ，再轉為 ascii 
     std::string stringToUTF8(const std::string& str);
 
+    // cout 遇到 wstring 時，遇到中文會斷掉
+    // 雖然將 console視窗 設為 unicdoe 編碼可解決，但常用 cout 的人會出現異常
+    // 因此還是不要把 console 視窗設為 unicdoe ，而是將 wstring 轉為 string
+    std::string stringwTostring(const std::wstring& str);
+
 }

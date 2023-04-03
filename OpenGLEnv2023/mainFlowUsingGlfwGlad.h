@@ -9,4 +9,7 @@ protected:
     void mainloopAfter();
 public:
     void mainLoop();
+private:
+    void callbackKey(GLFWwindow* window, int keycode, int scancode, int action, int mods);
+    static void callbackGlfwKey(GLFWwindow* window, int keycode, int scancode, int action, int mods);
 };
