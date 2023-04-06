@@ -35,6 +35,14 @@ void MainFlowUsingGlfwGlad::guiMainMenu() {
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
 				this->key_callback(window, GLFW_KEY_O, 24, GLFW_PRESS, GLFW_MOD_CONTROL);
 			}
+			if (ImGui::MenuItem("Open Advanced", "")) {
+				auto dir = EasyIO::OpenDirectoryDialog();
+				std::vector<stringT> results;
+				EasyIO::ListFilesRecursive(dir, results);
+				for (auto& a1 : results) {
+					std::cout << EasyString::stringwTostring(a1) << std::endl;
+				}
+			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
 				this->key_callback(window, GLFW_KEY_S, 31, GLFW_PRESS, GLFW_MOD_CONTROL);
 			}

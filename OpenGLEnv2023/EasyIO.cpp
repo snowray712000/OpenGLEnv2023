@@ -101,6 +101,35 @@ namespace EasyIO {
 		return stringT();
 	}
 
+	void ListFilesRecursive(const stringT& path, std::vector<stringT>& files)
+	{
+		WIN32_FIND_DATA find_data;
+		HANDLE hFind;
+
+		stringT path_with_mask = path + _T("/*.*");
+		hFind = FindFirstFile(path_with_mask.c_str(), &find_data);
+		if (hFind == INVALID_HANDLE_VALUE) {
+			//std::cerr << "Failed to find first file: " << path << std::endl;
+			return;
+		}
+
+		do {
+			const stringT file_path = path + _T("/") + find_data.cFileName;
+			if (find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+				// 如果是目录，则递归调用ListFilesRecursive函数
+				if (_tcscmp(find_data.cFileName, _T(".")) != 0 && _tcscmp(find_data.cFileName, _T("..")) != 0) {
+					ListFilesRecursive(file_path, files);
+				}
+			}
+			else {
+				// 如果是文件，则添加到文件列表中
+				files.push_back(file_path);
+			}
+		} while (FindNextFile(hFind, &find_data));
+
+		FindClose(hFind);
+	}
+
 	// 辅助函数：分割路径字符串为路径名和目录名
 	inline void RelativePathConvertor::splitPath(const stringT& path, stringT& dirname, stringT& filename) {
 		size_t pos = path.find_last_of(_T('/'));

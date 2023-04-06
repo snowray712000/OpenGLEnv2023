@@ -23,6 +23,8 @@ namespace EasyIO {
     // _T("Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0")
     // _T("txt")
     stringT SaveFileDialog(LPCTSTR filter, LPCTSTR defExt);
+    void ListFilesRecursive(const stringT& path, std::vector<stringT>& files);
+
 }
 namespace EasyIO {
     inline stringT OpenFileDialogEasy(LPCTSTR filter) {
