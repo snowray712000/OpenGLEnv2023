@@ -159,12 +159,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="STLTrimLineGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyImGui.h" />
     <ClInclude Include="EasyIO.h" />
     <ClInclude Include="EasyString.h" />
     <ClInclude Include="mainFlowUsingGlfwGlad.h" />
+    <ClInclude Include="STLTrimLineGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,6 +10,7 @@
 #include "EasyImGui.h"
 #include "EasyIO.h"
 #include "EasyString.h"
+#include "STLTrimLineGenerator.h"
 
 #define M_PI       3.14159265358979323846   // pi
 MainFlowUsingGlfwGlad& MainFlowUsingGlfwGlad::s() {
@@ -35,16 +36,12 @@ void MainFlowUsingGlfwGlad::guiMainMenu() {
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
 				this->key_callback(window, GLFW_KEY_O, 24, GLFW_PRESS, GLFW_MOD_CONTROL);
 			}
-			if (ImGui::MenuItem("Open Advanced", "")) {
-				auto dir = EasyIO::OpenDirectoryDialog();
-				std::vector<stringT> results;
-				EasyIO::ListFilesRecursive(dir, results);
-				for (auto& a1 : results) {
-					std::cout << EasyString::stringwTostring(a1) << std::endl;
-				}
-			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
 				this->key_callback(window, GLFW_KEY_S, 31, GLFW_PRESS, GLFW_MOD_CONTROL);
+			}
+			if (ImGui::MenuItem("Batch Process", "")) {
+				STLTrimLineGeneratorBatchFlow flow;
+				flow.main();
 			}
 			ImGui::EndMenu();
 		}
@@ -109,7 +106,7 @@ void MainFlowUsingGlfwGlad::key_callback(GLFWwindow* window, int keycode, int sc
 		// 當 快速鍵 與 menu 綁定一起時，則在 menu 直接呼叫 callbackKey，參數要知道，就打開 print
 		// printf("%d %d %d %d", keycode, scancode, action, mods); // 79 24 1 2
 		auto path = EasyIO::OpenFileDialogEasy(_T("STL Files\0*.stl\0All Files(*.*)\0*.*\0"));
-		std::cout << EasyString::stringwTostring(path); 
+		std::cout << EasyString::toCout(path); 
 	}
 	else if (keycode == GLFW_KEY_S && mods == GLFW_MOD_CONTROL && action == GLFW_PRESS) {
 		auto path = EasyIO::SaveFileDialog(_T("Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0"),_T("txt"));

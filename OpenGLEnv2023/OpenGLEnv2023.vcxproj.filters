@@ -66,6 +66,9 @@
     <ClCompile Include="EasyImGui.cpp">
       <Filter>來源檔案\EasyTool</Filter>
     </ClCompile>
+    <ClCompile Include="STLTrimLineGenerator.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyIO.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="EasyImGui.h">
       <Filter>來源檔案\EasyTool</Filter>
+    </ClInclude>
+    <ClInclude Include="STLTrimLineGenerator.h">
+      <Filter>來源檔案</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
