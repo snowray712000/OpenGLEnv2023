@@ -33,4 +33,12 @@ namespace EasyString {
     // 因此還是不要把 console 視窗設為 unicdoe ，而是將 wstring 轉為 string
     std::string stringwTostring(const std::wstring& str);
 
+    inline std::string toCout(const stringT& str) {
+#ifdef UNICODE
+        return stringwTostring(str);
+#else
+        return str;
+#endif
+    }
+
 }

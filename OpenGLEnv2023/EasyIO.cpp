@@ -130,8 +130,7 @@ namespace EasyIO {
 		FindClose(hFind);
 	}
 
-	// 辅助函数：分割路径字符串为路径名和目录名
-	inline void RelativePathConvertor::splitPath(const stringT& path, stringT& dirname, stringT& filename) {
+	void splitPath(const stringT& path, stringT& dirname, stringT& filename) {
 		size_t pos = path.find_last_of(_T('/'));
 		if (pos == std::string::npos) {
 			dirname = _T("");
@@ -143,7 +142,19 @@ namespace EasyIO {
 		}
 	}
 
+	// 取得副檔名 .txt or ""
+	stringT getPathExtension(const stringT& path) {
+		stringT re = PathFindExtension(path.c_str());
+		if (re.empty()) return stringT();
+		return re;
+	}
 
+	// 取得 沒有 副檔名 的檔名
+	stringT getPathRemoveExtension(const stringT& path) {
+		stringT re = path;
+		PathRemoveExtension(&re[0]);
+		return re;
+	}
 	stringT RelativePathConvertor::makeRelativePath(const stringT& pathFull, stringT pathCurrentDirection) {
 		if (pathCurrentDirection.empty()) {
 			pathCurrentDirection = EasyIO::replaceBackslashWithSlash(EasyIO::getExecutableDirectory() + _T('/'));

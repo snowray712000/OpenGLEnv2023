@@ -43,9 +43,13 @@ namespace EasyIO {
 
 
 namespace EasyIO {
+    // 辅助函数：分割路径字符串为路径名和目录名，搜尋 '/' 字元
+    void splitPath(const stringT& path, stringT& dirname, stringT& filename);
+    // 取得副檔名
+    stringT getPathExtension(const stringT& path);
+    // 取得 沒有 副檔名 的檔名
+    stringT getPathRemoveExtension(const stringT& path);
     class RelativePathConvertor {
-        // 辅助函数：分割路径字符串为路径名和目录名
-        void splitPath(const stringT& path, stringT& dirname, stringT& filename);
     public:
         // 1. 生成相对路径，注意，一定要 / 而不能 \\，可使用 replaceBackslashWithSlash 來處理
         // 2. 若參數 currect 沒傳，則用 exe 目前目錄
