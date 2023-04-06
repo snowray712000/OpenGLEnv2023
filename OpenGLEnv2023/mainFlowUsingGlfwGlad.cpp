@@ -5,6 +5,7 @@
 #include "mainFlowUsingGlfwGlad.h"
 
 #include <iostream> // cout
+#include <fstream>
 #include <math.h>
 #include "EasyImGui.h"
 #include "EasyIO.h"
@@ -33,6 +34,9 @@ void MainFlowUsingGlfwGlad::guiMainMenu() {
 		if (ImGui::BeginMenu("File", true)) {
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {
 				this->key_callback(window, GLFW_KEY_O, 24, GLFW_PRESS, GLFW_MOD_CONTROL);
+			}
+			if (ImGui::MenuItem("Save", "Ctrl+S")) {
+				this->key_callback(window, GLFW_KEY_S, 31, GLFW_PRESS, GLFW_MOD_CONTROL);
 			}
 			ImGui::EndMenu();
 		}
@@ -98,6 +102,9 @@ void MainFlowUsingGlfwGlad::key_callback(GLFWwindow* window, int keycode, int sc
 		// printf("%d %d %d %d", keycode, scancode, action, mods); // 79 24 1 2
 		auto path = EasyIO::OpenFileDialogEasy(_T("STL Files\0*.stl\0All Files(*.*)\0*.*\0"));
 		std::cout << EasyString::stringwTostring(path); 
+	}
+	else if (keycode == GLFW_KEY_S && mods == GLFW_MOD_CONTROL && action == GLFW_PRESS) {
+		auto path = EasyIO::SaveFileDialog(_T("Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0"),_T("txt"));
 	}
 }
 

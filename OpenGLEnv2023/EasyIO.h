@@ -20,6 +20,9 @@ namespace EasyIO {
     // 開啟對話方塊，選擇目錄。
     stringT OpenDirectoryDialog();
     bool isPathExist(stringT path);
+    // _T("Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0")
+    // _T("txt")
+    stringT SaveFileDialog(LPCTSTR filter, LPCTSTR defExt);
 }
 namespace EasyIO {
     inline stringT OpenFileDialogEasy(LPCTSTR filter) {

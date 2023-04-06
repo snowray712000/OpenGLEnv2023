@@ -80,6 +80,27 @@ namespace EasyIO {
 		return PathFileExists(path.c_str());
 	}
 
+	stringT SaveFileDialog(LPCTSTR filter, LPCTSTR defExt) {
+		// 初始化OPENFILENAME结构体
+		OPENFILENAME ofn;
+		TCHAR szFileName[MAX_PATH] = _T("");
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFilter = filter; // "Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0"
+		ofn.lpstrFile = szFileName;
+		ofn.nMaxFile = MAX_PATH;
+		ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+		ofn.lpstrDefExt = defExt; //"txt"
+
+		// 打开文件对话框
+		if (GetSaveFileName(&ofn) == TRUE) {
+			return stringT(szFileName);
+		}
+		return stringT();
+	}
+
 	// 辅助函数：分割路径字符串为路径名和目录名
 	inline void RelativePathConvertor::splitPath(const stringT& path, stringT& dirname, stringT& filename) {
 		size_t pos = path.find_last_of(_T('/'));
